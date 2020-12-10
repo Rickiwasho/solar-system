@@ -93,19 +93,44 @@ int main(){
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, &projection[0][0]);
 
-    malla *sol = new malla((char *) "mallas/untitled.obj", shader_programme);
-    malla *pluton = new malla((char *) "mallas/untitled.obj", shader_programme);
-    malla *mi_libro = new malla((char *) "mallas/untitled.obj", shader_programme);
 
-    sol -> setpos(glm::vec3(0.0f, 0.0f, -6.0f));
-    sol->scale = glm::vec3(3.0f, 3.0f, 3.0f);
+    // creacion objetos
+    malla *sun = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *venus = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *earth = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *moon = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *mars = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *jupyter = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *saturn = new malla((char *) "mallas/untitled.obj", shader_programme);
 
-    mi_libro -> setpos(pluton->getpos() + glm::vec3(2.f, 3.f, 8.f));
-    mi_libro->scale = glm::vec3(0.5f, 0.5f, 0.5f);
 
-    pluton -> setpos(glm::vec3(4.f, 3.f, -2.f));
 
-    float mitick = 0.0f; //controla las rotaciones
+    // localizacion espacial
+    sun -> setpos(glm::vec3(0.0f, 0.0f, -6.0f));
+    venus -> setpos(glm::vec3(3.f, 3.f, -2.f));
+    earth -> setpos(glm::vec3(4.f, 3.f, -2.f));
+    moon -> setpos(earth->getpos() + glm::vec3(2.f, 3.f, 8.f));
+    mars-> setpos(glm::vec3(7.f, 3.f, -2.f));
+    jupyter-> setpos(glm::vec3(14.f, 3.f, -2.f));
+    saturn-> setpos(glm::vec3(20.f, 3.f, -2.f));
+
+
+
+
+
+    // Dimension
+    sun->scale = glm::vec3(1.0f, 1.0f, 1.0f);
+    venus->scale = glm::vec3(0.3f, 0.3f, 0.3f);
+    earth->scale = glm::vec3(0.3f, 0.3f, 0.3f);
+    moon->scale = glm::vec3(0.03f, 0.03f, 0.03f);
+    mars->scale = glm::vec3(0.2f, 0.2f, 0.2f);
+    jupyter->scale = glm::vec3(0.7f, 0.7f, 0.7f);
+    saturn->scale = glm::vec3(0.65f, 0.65f, 0.65f);
+
+
+
+    //controla las rotaciones
+    float mitick = 0.0f; 
 
 	// render loop
 	// -----------
@@ -127,14 +152,24 @@ int main(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //graficos
-        sol->draw();
-        pluton->draw();
-        mi_libro->draw();
+        sun->draw();
+        venus->draw();
+        earth->draw();
+        moon->draw();
+        mars->draw();
+        jupyter->draw();
+        saturn->draw();
         
         //logica
-        pluton->setpos(sol->getpos() + glm::vec3(6*sin(mitick), 0.0f, -7*cos(mitick)));
-        mi_libro->setpos(pluton->getpos() + glm::vec3(2*sin(mitick*3), 0.0f, 1.5*cos(-3*mitick)));
-        mitick += 0.02f;
+        venus->setpos(sun->getpos() + glm::vec3(8*sin(mitick), 0.0f, -10*cos(mitick)));
+        earth->setpos(sun->getpos() + glm::vec3(12*sin(0.8 * mitick), 0.0f, -14*cos(0.8 * mitick)));
+        moon->setpos(earth->getpos() + glm::vec3(2*sin(mitick*3), 0.0f, 1.5*cos(-3*mitick)));
+        mars->setpos(sun->getpos() + glm::vec3(20*sin(0.5 * mitick), 0.0f, -22*cos(0.5 * mitick)));
+        jupyter->setpos(sun->getpos() + glm::vec3(40*sin(0.2 * mitick), 0.0f, -42*cos(0.2 * mitick)));
+        saturn->setpos(sun->getpos() + glm::vec3(50*sin(0.1 * mitick), 0.0f, -52*cos(0.1 * mitick)));
+
+
+        mitick += 0.0005f;
 
 		// activate shader
 		glUseProgram (shader_programme);
