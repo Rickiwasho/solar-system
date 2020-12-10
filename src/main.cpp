@@ -93,6 +93,20 @@ int main(){
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, &projection[0][0]);
 
+    malla *sol = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *pluton = new malla((char *) "mallas/untitled.obj", shader_programme);
+    malla *mi_libro = new malla((char *) "mallas/untitled.obj", shader_programme);
+
+    sol -> setpos(glm::vec3(0.0f, 0.0f, -6.0f));
+    sol->scale = glm::vec3(3.0f, 3.0f, 3.0f);
+
+    mi_libro -> setpos(pluton->getpos() + glm::vec3(2.f, 3.f, 8.f));
+    mi_libro->scale = glm::vec3(0.5f, 0.5f, 0.5f);
+
+    pluton -> setpos(glm::vec3(4.f, 3.f, -2.f));
+
+    float mitick = 0.0f; //controla las rotaciones
+
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(g_window)){
@@ -109,8 +123,18 @@ int main(){
 
 		// render
 		// ------
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        //graficos
+        sol->draw();
+        pluton->draw();
+        mi_libro->draw();
+        
+        //logica
+        pluton->setpos(sol->getpos() + glm::vec3(6*sin(mitick), 0.0f, -7*cos(mitick)));
+        mi_libro->setpos(pluton->getpos() + glm::vec3(2*sin(mitick*3), 0.0f, 1.5*cos(-3*mitick)));
+        mitick += 0.02f;
 
 		// activate shader
 		glUseProgram (shader_programme);

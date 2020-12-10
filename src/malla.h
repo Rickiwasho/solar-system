@@ -31,6 +31,7 @@ class malla{
         void setpos(glm::vec3 p);
         void setfilename(char *f);
 	void draw();
+    glm::vec3 scale;
 };
 
 #endif

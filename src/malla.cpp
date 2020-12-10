@@ -17,7 +17,7 @@ malla::malla(char* filename, int shaderprog){
 	this->shaderprog = shaderprog;
 	assert(load_mesh(filename, &vao, &numvertices));
 	model_location = glGetUniformLocation(shaderprog, "model");
-
+    scale = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
 GLuint malla::getvao(){
@@ -38,7 +38,8 @@ char* malla::getfilename(){
 
 void malla::setpos(glm::vec3 p){
 	pos = p;
-   	model = glm::translate(glm::mat4(1.0f), pos); 
+   	model = glm::translate(glm::mat4(1.0f), pos);
+    model = glm::scale(model, this->scale);
 }
 
 void malla::draw(){
