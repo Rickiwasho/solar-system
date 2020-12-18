@@ -103,20 +103,39 @@ int main(){
     malla *jupyter = new malla((char *) "mallas/untitled.obj", shader_programme);
     malla *saturn = new malla((char *) "mallas/untitled.obj", shader_programme);
 
+    malla *halo_venus = new malla((char *) "mallas/halo.obj", shader_programme);
+    malla *halo_earth = new malla((char *) "mallas/halo.obj", shader_programme);
+    malla *halo_mars = new malla((char *) "mallas/halo.obj", shader_programme);
+    malla *halo_jupyter = new malla((char *) "mallas/halo.obj", shader_programme);
+    malla *halo_saturn = new malla((char *) "mallas/halo.obj", shader_programme);
 
 
     // localizacion espacial
     sun -> setpos(glm::vec3(0.0f, 0.0f, -6.0f));
     venus -> setpos(glm::vec3(3.f, 3.f, -2.f));
-    earth -> setpos(glm::vec3(4.f, 3.f, -2.f));
+    earth -> setpos(glm::vec3(4.f, 4.f, -2.f));
     moon -> setpos(earth->getpos() + glm::vec3(2.f, 3.f, 8.f));
-    mars-> setpos(glm::vec3(7.f, 3.f, -2.f));
-    jupyter-> setpos(glm::vec3(14.f, 3.f, -2.f));
-    saturn-> setpos(glm::vec3(20.f, 3.f, -2.f));
+    mars-> setpos(glm::vec3(7.f, 7.f, -2.f));
+    jupyter-> setpos(glm::vec3(14.f, 14.f, -2.f));
+    saturn-> setpos(glm::vec3(20.f, 20.f, -2.f));
+
+    halo_venus -> setpos(glm::vec3(0.0f, 0.0f, -6.0f));
+    halo_earth -> setpos(glm::vec3(0.0f, 0.0f, -8.0f));
+    halo_mars -> setpos(glm::vec3(0.0f, 0.0f, -14.0f));
+    halo_jupyter -> setpos(glm::vec3(0.0f, 0.0f, -28.0f));
+    halo_saturn -> setpos(glm::vec3(0.0f, 0.0f, -40.0f));
+    
 
 
-
-
+/*
+        venus->setpos(sun->getpos() + glm::vec3(8*sin(mitick), 0.0f, -8*cos(mitick)));
+        earth->setpos(sun->getpos() + glm::vec3(12*sin(0.8 * mitick), 0.0f, -12*cos(0.8 * mitick)));
+        moon->setpos(earth->getpos() + glm::vec3(2*sin(mitick*3), 0.0f, 1.5*cos(-3*mitick)));
+        mars->setpos(sun->getpos() + glm::vec3(20*sin(0.5 * mitick), 0.0f, -20*cos(0.5 * mitick)));
+        jupyter->setpos(sun->getpos() + glm::vec3(40*sin(0.2 * mitick), 0.0f, -40*cos(0.2 * mitick)));
+        saturn->setpos(sun->getpos() + glm::vec3(50*sin(0.1 * mitick), 0.0f, -50*cos(0.1 * mitick)));
+        halo->setpos(sun->getpos());
+*/
 
     // Dimension
     sun->scale = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -127,10 +146,15 @@ int main(){
     jupyter->scale = glm::vec3(0.7f, 0.7f, 0.7f);
     saturn->scale = glm::vec3(0.65f, 0.65f, 0.65f);
 
+    halo_venus->scale =  glm::vec3(8.f, 1.f, 8.f);
+    halo_earth->scale =  glm::vec3(12.f, 1.f, 12.f);
+    halo_mars->scale =  glm::vec3(20.f, 1.f, 20.f);
+    halo_jupyter->scale =  glm::vec3(40.f, 1.f, 40.f);
+    halo_saturn->scale =  glm::vec3(50.f, 1.f, 50.f);
 
 
     //controla las rotaciones
-    float mitick = 0.0f; 
+    float mitick = 0.005f; 
 
 	// render loop
 	// -----------
@@ -159,15 +183,25 @@ int main(){
         mars->draw();
         jupyter->draw();
         saturn->draw();
+
+        halo_venus->draw();
+        halo_earth->draw();
+        halo_mars->draw();
+        halo_jupyter->draw();
+        halo_saturn->draw();
         
         //logica
-        venus->setpos(sun->getpos() + glm::vec3(8*sin(mitick), 0.0f, -10*cos(mitick)));
-        earth->setpos(sun->getpos() + glm::vec3(12*sin(0.8 * mitick), 0.0f, -14*cos(0.8 * mitick)));
-        moon->setpos(earth->getpos() + glm::vec3(2*sin(mitick*3), 0.0f, 1.5*cos(-3*mitick)));
-        mars->setpos(sun->getpos() + glm::vec3(20*sin(0.5 * mitick), 0.0f, -22*cos(0.5 * mitick)));
-        jupyter->setpos(sun->getpos() + glm::vec3(40*sin(0.2 * mitick), 0.0f, -42*cos(0.2 * mitick)));
-        saturn->setpos(sun->getpos() + glm::vec3(50*sin(0.1 * mitick), 0.0f, -52*cos(0.1 * mitick)));
-
+        venus->setpos(sun->getpos() + glm::vec3(8*sin(mitick), 0.0f, -8*cos(mitick)));
+        earth->setpos(sun->getpos() + glm::vec3(12*sin(0.8 * mitick), 0.0f, -12*cos(0.8 * mitick)));
+        moon->setpos(earth->getpos() + glm::vec3(2*sin(3*mitick), 0.0f, 2*cos(-3*mitick)));
+        mars->setpos(sun->getpos() + glm::vec3(20*sin(0.5 * mitick), 0.0f, -20*cos(0.5 * mitick)));
+        jupyter->setpos(sun->getpos() + glm::vec3(40*sin(0.2 * mitick), 0.0f, -40*cos(0.2 * mitick)));
+        saturn->setpos(sun->getpos() + glm::vec3(50*sin(0.1 * mitick), 0.0f, -50*cos(0.1 * mitick)));
+        halo_venus->setpos(sun->getpos());
+        halo_earth->setpos(sun->getpos());
+        halo_mars->setpos(sun->getpos());
+        halo_jupyter->setpos(sun->getpos());
+        halo_saturn->setpos(sun->getpos());
 
         mitick += 0.0005f;
 
