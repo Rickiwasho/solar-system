@@ -154,6 +154,7 @@ int main(){
     halo_mars->scale =  glm::vec3(20.f, 1.f, 20.f);
     halo_jupyter->scale =  glm::vec3(40.f, 1.f, 40.f);
     halo_saturn->scale =  glm::vec3(50.f, 1.f, 50.f);
+<<<<<<< HEAD
 
     earth->vel_rotacion = 0.5f;
      venus->vel_rotacion = 0.5f;
@@ -228,6 +229,8 @@ int main(){
     glGenerateMipmap(GL_TEXTURE_2D);
 
     stbi_image_free(data3);
+=======
+>>>>>>> 36f078a39a4b0c0eb5f85f0bdd80dc6ff85d354d
 
      //----------textura moon--------------
 
@@ -318,6 +321,7 @@ int main(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //graficos
+<<<<<<< HEAD
         glBindTexture(GL_TEXTURE_2D, texture2);
         sun->drawtriangles();
         glBindTexture(GL_TEXTURE_2D, texture3);
@@ -338,6 +342,21 @@ int main(){
         halo_mars->drawlines();
         halo_jupyter->drawlines();
         halo_saturn->drawlines();
+=======
+        sun->draw();
+        venus->draw();
+        earth->draw();
+        moon->draw();
+        mars->draw();
+        jupyter->draw();
+        saturn->draw();
+
+        halo_venus->draw();
+        halo_earth->draw();
+        halo_mars->draw();
+        halo_jupyter->draw();
+        halo_saturn->draw();
+>>>>>>> 36f078a39a4b0c0eb5f85f0bdd80dc6ff85d354d
         
         //logica
         venus->setpos(sun->getpos() + glm::vec3(8*sin(mitick), 0.0f, -8*cos(mitick)));
