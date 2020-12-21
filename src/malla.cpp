@@ -13,11 +13,13 @@
 using namespace std;
 malla::malla(char* filename, int shaderprog){
     	this->setpos(glm::vec3(0,0,0));
-	this->filename = filename;
-	this->shaderprog = shaderprog;
-	assert(load_mesh(filename, &vao, &numvertices));
-	model_location = glGetUniformLocation(shaderprog, "model");
-    scale = glm::vec3(1.0f, 1.0f, 1.0f);
+		this->filename = filename;
+		this->shaderprog = shaderprog;
+		assert(load_mesh(filename, &vao, &numvertices));
+		model_location = glGetUniformLocation(shaderprog, "model");
+		scale = glm::vec3(1.0f, 1.0f, 1.0f);
+		this->vel_rotacion = 0.0f;
+		this->tick = 0.0f;
 }
 
 GLuint malla::getvao(){
@@ -39,10 +41,20 @@ char* malla::getfilename(){
 void malla::setpos(glm::vec3 p){
 	pos = p;
    	model = glm::translate(glm::mat4(1.0f), pos);
+	model = glm::rotate(model, glm::radians(tick), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::scale(model, this->scale);
+	tick += vel_rotacion;
 }
 
-void malla::draw(){
+void malla::drawtriangles(){
+	glUseProgram(shaderprog);
+        glBindVertexArray(this->getvao());
+        glUniformMatrix4fv(model_location, 1, GL_FALSE, &model[0][0]);
+        glDrawArrays(GL_TRIANGLES, 0, this->getnumvertices());
+        glBindVertexArray(0);
+}
+
+void malla::drawlines(){
 	glUseProgram(shaderprog);
         glBindVertexArray(this->getvao());
         glUniformMatrix4fv(model_location, 1, GL_FALSE, &model[0][0]);
